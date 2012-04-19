@@ -1,0 +1,9 @@
+.note {
+    background-color: yellow;
+    border-style: solid;
+    border-width: 1px;
+    border-color: black;
+    padding: 1em;
+    width: 150px;
+    height: 150px;
+}

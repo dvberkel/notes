@@ -38,7 +38,7 @@
 	    var noticeboard = $(this.el);
 	    noticeboard.empty();
 	    this.model.forEach(function(noteModel, index){
-		var span = $("<span />", { "class" : "note" });
+		var span = $("<div />", { "class" : "note" });
 		new NoteView({ el : span, model : noteModel });
 		span.appendTo(noticeboard);
 	    });
