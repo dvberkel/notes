@@ -1,6 +1,8 @@
-(function($, _, Backbone, undefined){
+(function($, _, Backbone, Markdown, undefined){
+    var converter = new Markdown.Converter();
+
     var NoteModel = Backbone.Model.extend({
-	defaults : {content : "Click to change", x : 0, y : 0}
+	defaults : {content : "**Click to change**", x : 0, y : 0}
     });
 
     var NotesModel = Backbone.Collection.extend({
@@ -23,7 +25,7 @@
 		position: 'absolute',
 		top: this.model.get('y') + 'px',
 		left: this.model.get('x') + 'px'
-	    }).html(this.model.get('content'));
+	    }).html(converter.makeHtml(this.model.get('content')));
 	}
     });
 
@@ -56,7 +58,7 @@
 	$("#note-factory").click(function(){
 	    var x = (window.innerWidth - 150) * Math.random();
 	    var y = (window.innerHeight - 150) * Math.random();
-	    notes.add({content: "Click to change", x : x, y : y});
+	    notes.add({content: "*Click to change*", x : x, y : y});
 	});
     });      
-})(jQuery, _, Backbone);
+})(jQuery, _, Backbone, Markdown);
