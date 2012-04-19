@@ -2,7 +2,7 @@
     var converter = new Markdown.Converter();
 
     var NoteModel = Backbone.Model.extend({
-	defaults : {content : "**Click to change**", x : 0, y : 0}
+	defaults : {content : "*Click to change*", edit: false, x : 0, y : 0}
     });
 
     var NotesModel = Backbone.Collection.extend({
@@ -77,7 +77,7 @@
 	$("#note-factory").click(function(){
 	    var x = (window.innerWidth - 150) * Math.random();
 	    var y = (window.innerHeight - 150) * Math.random();
-	    notes.add({content: "*Click to change*", x : x, y : y});
+	    notes.add({x : x, y : y});
 	});
     });      
 })(jQuery, _, Backbone, Markdown);
