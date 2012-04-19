@@ -53,14 +53,20 @@
 	},
 	
 	render : function(){
-	    var element = $(this.el);
+	    var view = this;
+	    var element = $(view.el);
 	    element.empty().addClass('note').css({
 		position: 'absolute',
-		top: this.model.get('y') + 'px',
-		left: this.model.get('x') + 'px'
-	    }).draggable(); 
+		top: view.model.get('y') + 'px',
+		left: view.model.get('x') + 'px'
+	    }).draggable({
+		stop : function(){
+		    var position = element.position();
+		    view.model.set({ x: position.left, y : position.top }, { silent : true });
+		}
+	    }); 
 	    var content = $("<div />").appendTo(element);
-	    new NoteContentView({ el: content, model: this.model });
+	    new NoteContentView({ el: content, model: view.model });
 	    
 	}
     });
