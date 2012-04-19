@@ -8,6 +8,22 @@
     var NotesModel = Backbone.Collection.extend({
 	model : NoteModel
     });
+
+    var NoteContentView = Backbone.View.extend({
+	initialize : function() {
+	    _.bindAll(this, 'render');
+	    
+	    var renderMe = function(){this.render();};
+	    this.model.bind("change:content", renderMe, this);
+	    this.model.bind("change:edit", renderMe, this);
+
+	    this.render();
+	},
+
+	render : function() {
+	    $(this.el).empty().html(converter.makeHtml(this.model.get('content')));
+	}
+    });
     
     var NoteView = Backbone.View.extend({
 	initialize : function(){
@@ -21,11 +37,16 @@
 	},
 	
 	render : function(){
-	    $(this.el).addClass('note').css({
+	    var element = $(this.el);
+	    element.addClass('note').css({
 		position: 'absolute',
 		top: this.model.get('y') + 'px',
 		left: this.model.get('x') + 'px'
-	    }).html(converter.makeHtml(this.model.get('content')));
+	    });
+	    var content = $("<div />");
+	    content.appendTo(element);
+	    new NoteContentView({ el: content, model: this.model });
+	    
 	}
     });
 
