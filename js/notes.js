@@ -1,6 +1,6 @@
 (function($, _, Backbone, undefined){
     var NoteModel = Backbone.Model.extend({
-	defaults : {content: "Click to change"}
+	defaults : {content : "Click to change", x : 0, y : 0}
     });
 
     var NotesModel = Backbone.Collection.extend({
@@ -19,7 +19,11 @@
 	},
 	
 	render : function(){
-	    $(this.el).html(this.model.get('content'));
+	    $(this.el).css({
+		position: 'absolute',
+		top: this.model.get('y') + 'px',
+		left: this.model.get('x') + 'px'
+	    }).html(this.model.get('content'));
 	}
     });
 
@@ -50,8 +54,9 @@
 	new NoticeboardView({el: $("#noticeboard"), model: notes});
 	
 	$("#note-factory").click(function(){
-	    console.log("clicked");
-	    notes.add({content: "Click to change"})
+	    var x = (window.innerWidth - 150) * Math.random();
+	    var y = (window.innerHeight - 150) * Math.random();
+	    notes.add({content: "Click to change", x : x, y : y});
 	});
     });      
 })(jQuery, _, Backbone);
