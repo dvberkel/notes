@@ -58,8 +58,7 @@
 		position: 'absolute',
 		top: this.model.get('y') + 'px',
 		left: this.model.get('x') + 'px'
-	    });
-	    var 
+	    }); 
 	    var content = $("<div />").appendTo(element);
 	    new NoteContentView({ el: content, model: this.model });
 	    
