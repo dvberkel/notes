@@ -19,7 +19,7 @@
 	},
 	
 	render : function(){
-	    $(this.el).css({
+	    $(this.el).addClass('note').css({
 		position: 'absolute',
 		top: this.model.get('y') + 'px',
 		left: this.model.get('x') + 'px'
@@ -42,7 +42,7 @@
 	    var noticeboard = $(this.el);
 	    noticeboard.empty();
 	    this.model.forEach(function(noteModel, index){
-		var span = $("<div />", { "class" : "note" });
+		var span = $("<div />");
 		new NoteView({ el : span, model : noteModel });
 		span.appendTo(noticeboard);
 	    });
