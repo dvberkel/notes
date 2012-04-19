@@ -26,12 +26,17 @@
     var NoticeboardView = Backbone.View.extend({
 	initialize : function(){
 	    _.bindAll(this, 'render');
-
+	    
+	    this.model.bind("add", function(){
+		this.render();
+	    }, this);
+	    
 	    this.render();
 	},
 	
 	render : function(){
 	    var noticeboard = $(this.el);
+	    noticeboard.empty();
 	    this.model.forEach(function(noteModel, index){
 		var span = $("<span />", { "class" : "note" });
 		new NoteView({ el : span, model : noteModel });
@@ -42,9 +47,11 @@
 
     $(function(){
 	var notes = new NotesModel();
-	notes.add({content: "One of a kind"});
 	new NoticeboardView({el: $("#noticeboard"), model: notes});
-
-	new NoteView({el: $("#note"), model: new NoteModel()});
+	
+	$("#note-factory").click(function(){
+	    console.log("clicked");
+	    notes.add({content: "Click to change"})
+	});
     });      
 })(jQuery, _, Backbone);
