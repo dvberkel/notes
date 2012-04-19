@@ -10,6 +10,8 @@
     });
 
     var NoteContentView = Backbone.View.extend({
+	template : _.template("<textarea><%= content  %></textarea>"),
+
 	initialize : function() {
 	    _.bindAll(this, 'render');
 	    
@@ -21,7 +23,21 @@
 	},
 
 	render : function() {
-	    $(this.el).empty().html(converter.makeHtml(this.model.get('content')));
+	    var view = this; var element = $(view.el);
+	    element.empty();
+	    if (!view.model.get('edit')) {
+		element.html(converter.makeHtml(view.model.get('content')));
+		element.click(function(){
+		    view.model.set({ edit : true });
+		});
+	    } else {
+		var input = $(view.template(view.model.toJSON())).blur(function(){
+		    view.model.set({ content : $(this).val(), edit : false });
+		});
+		input.appendTo(element);
+		input.focus();
+		
+	    }
 	}
     });
     
@@ -38,11 +54,12 @@
 	
 	render : function(){
 	    var element = $(this.el);
-	    element.addClass('note').css({
+	    element.empty().addClass('note').css({
 		position: 'absolute',
 		top: this.model.get('y') + 'px',
 		left: this.model.get('x') + 'px'
 	    });
+	    var 
 	    var content = $("<div />").appendTo(element);
 	    new NoteContentView({ el: content, model: this.model });
 	    
