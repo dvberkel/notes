@@ -38,6 +38,7 @@
 	    } else {
 		var input = $(view.template(view.model.toJSON())).blur(function(){
 		    view.model.set({ content : $(this).val(), edit : false });
+		    view.model.save();
 		});
 		input.appendTo(element);
 		input.focus();
