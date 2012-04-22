@@ -10,6 +10,7 @@
     });
 
     var NotesModel = Backbone.Collection.extend({
+	url : "/notes",
 	model : NoteModel
     });
 
