@@ -69,6 +69,7 @@
 		stop : function(){
 		    var position = element.position();
 		    view.model.set({ x: position.left, y : position.top }, { silent : true });
+		    view.model.save();
 		}
 	    }); 
 	    var content = $("<div />").appendTo(element);
