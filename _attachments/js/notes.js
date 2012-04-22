@@ -71,7 +71,12 @@
 		    view.model.set({ x: position.left, y : position.top }, { silent : true });
 		    view.model.save();
 		}
-	    }); 
+	    }).on("removed", function(){
+		view.model.set({ active : false });
+	    });
+	    if (! view.model.get("active")) {
+		element.hide();
+	    }
 	    var content = $("<div />").appendTo(element);
 	    new NoteContentView({ el: content, model: view.model });
 	    
@@ -85,14 +90,15 @@
 	    this.model.bind("add", function(){
 		this.render();
 	    }, this);
-	    
+
 	    this.render();
 	},
 	
 	render : function(){
-	    var noticeboard = $(this.el);
+	    var view = this;
+	    var noticeboard = $(view.el);
 	    noticeboard.empty();
-	    this.model.forEach(function(noteModel, index){
+	    view.model.forEach(function(noteModel, index){
 		var note = $("<div />").appendTo(noticeboard);
 		new NoteView({ el : note, model : noteModel });
 	    });
@@ -113,5 +119,11 @@
 	    var y = (window.innerHeight - 150) * Math.random();
 	    notes.create({x : x, y : y});
 	});
+	$("#note-destructor").droppable({
+	    accept : ".note",
+	    drop : function(event, ui){
+		ui.draggable.trigger("removed");
+	    }
+	}).addClass("waste-bin");
     });      
 })(jQuery, _, Backbone, Markdown);

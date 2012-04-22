@@ -1,5 +1,3 @@
-
-
 .note {
     font-family: 'Just Me Again Down Here', cursive;
     background-color: yellow;
@@ -19,4 +17,13 @@
 .note textarea {
     width: 100%;
     height: 100%;
+}
+
+.waste-bin {
+    background-color: orange;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
 }
