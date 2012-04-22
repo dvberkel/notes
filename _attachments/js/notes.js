@@ -1,4 +1,8 @@
 (function($, _, Backbone, Markdown, undefined){
+    Backbone.couch_connector.config.db_name = "notes";
+    Backbone.couch_connector.config.ddoc_name = "data";
+    Backbone.couch_connector.config.enableChanges = true;
+
     var converter = new Markdown.Converter();
 
     var NoteModel = Backbone.Model.extend({
