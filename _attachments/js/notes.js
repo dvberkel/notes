@@ -6,7 +6,7 @@
     var converter = new Markdown.Converter();
 
     var NoteModel = Backbone.Model.extend({
-	defaults : {content : "*Click to change*", edit: false, x : 0, y : 0}
+	defaults : {content : "*Click to change*", active: true, edit: false, x : 0, y : 0}
     });
 
     var NotesModel = Backbone.Collection.extend({
@@ -101,9 +101,12 @@
 
     $(function(){
 	var notes = new NotesModel();
-	notes.fetch();
+	notes.fetch({
+	    success: function(){
+		new NoticeboardView({el: $("#noticeboard"), model: notes});
+	    }
+	});
 
-	new NoticeboardView({el: $("#noticeboard"), model: notes});
 	
 	$("#note-factory").click(function(){
 	    var x = (window.innerWidth - 150) * Math.random();
