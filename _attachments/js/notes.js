@@ -100,12 +100,13 @@
     $(function(){
 	var notes = new NotesModel();
 	notes.fetch();
+
 	new NoticeboardView({el: $("#noticeboard"), model: notes});
 	
 	$("#note-factory").click(function(){
 	    var x = (window.innerWidth - 150) * Math.random();
 	    var y = (window.innerHeight - 150) * Math.random();
-	    notes.add({x : x, y : y});
+	    notes.create({x : x, y : y});
 	});
     });      
 })(jQuery, _, Backbone, Markdown);
