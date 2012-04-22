@@ -99,6 +99,7 @@
 
     $(function(){
 	var notes = new NotesModel();
+	notes.fetch();
 	new NoticeboardView({el: $("#noticeboard"), model: notes});
 	
 	$("#note-factory").click(function(){
