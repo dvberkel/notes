@@ -11,6 +11,9 @@
 
     var NotesModel = Backbone.Collection.extend({
 	url : "/notes",
+	db : {
+	    view : "active_notes"
+	},
 	model : NoteModel
     });
 
