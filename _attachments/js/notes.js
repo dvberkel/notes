@@ -4,7 +4,11 @@
     Backbone.couch_connector.config.enableChanges = true;
 
     var converter = new Markdown.Converter();
-
+    
+    var FactoryModel = Backbone.Model.extend({
+	defaults : { enabled : false }
+    });
+    
     var NoteModel = Backbone.Model.extend({
 	defaults : {content : "*Click to change*", active: true, edit: false, x : 0, y : 0}
     });
@@ -15,6 +19,31 @@
 	    view : "active_notes"
 	},
 	model : NoteModel
+    });
+    
+    var FactoryView = Backbone.View.extend({
+	initialize : function(){
+	    _.bindAll(this, "render");
+	    
+	    this.model.bind("change", function(){
+		this.render();
+	    }, this);
+
+	    this.render();
+	},
+
+	render : function(){
+	    var view = this;
+	    var element = $(view.el);
+	    element.empty();
+	    if (view.model.get("enabled")) {
+		$("<input type='button' value='Create Note'/>").click(function(){
+		    var x = (window.innerWidth - 150) * Math.random();
+		    var y = (window.innerHeight - 150) * Math.random();
+		    view.options.notes.create({x : x, y : y});
+		}).appendTo(element);
+	    }
+	}
     });
 
     var NoteContentView = Backbone.View.extend({
@@ -110,7 +139,7 @@
 
     $(function(){
 	$("#login").couchLogin();
-	
+
 	var notes = new NotesModel();
 	notes.fetch({
 	    success: function(){
@@ -118,12 +147,9 @@
 	    }
 	});
 
+	var factoryModel = new FactoryModel({enabled : true});
+	new FactoryView({ el : $("#note-factory"), model : factoryModel, notes : notes });
 	
-	$("#note-factory").click(function(){
-	    var x = (window.innerWidth - 150) * Math.random();
-	    var y = (window.innerHeight - 150) * Math.random();
-	    notes.create({x : x, y : y});
-	});
 	$("#note-destructor").droppable({
 	    accept : ".note",
 	    drop : function(event, ui){
