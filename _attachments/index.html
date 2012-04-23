@@ -3,10 +3,12 @@
     <title>Keep track of your notes</title>
     <link rel="stylesheet" type="text/css" href="css/notes.css"/>
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Just+Me+Again+Down+Here">
+    <script type="text/javascript" src="/_utils/script/sha1.js"></script>
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/underscore.js"></script>
     <script type="text/javascript" src="lib/backbone.js"></script>
     <script type="text/javascript" src="lib/jquery.couch.js"></script>
+    <script type="text/javascript" src="lib/jquery.couchLogin.js"></script>
     <script type="text/javascript" src="lib/backbone-couchdb.js"></script>
     <script type="text/javascript" src="lib/Markdown.Converter.js"></script>
     <script type="text/javascript" src="lib/jquery-ui.js"></script>
@@ -15,6 +17,7 @@
   <body>
     <input id="note-factory" type="button" value="Create Note"/>
     <div id="note-destructor"><p>Drag to delete</p></div>
+    <div id="login"></div>
     <div id="noticeboard">
     </div>
   </body>

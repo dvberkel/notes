@@ -109,6 +109,8 @@
     });
 
     $(function(){
+	$("#login").couchLogin();
+	
 	var notes = new NotesModel();
 	notes.fetch({
 	    success: function(){
