@@ -5,7 +5,7 @@
 
     var converter = new Markdown.Converter();
     
-    var FactoryModel = Backbone.Model.extend({
+    var StatusModel = Backbone.Model.extend({
 	defaults : { enabled : false }
     });
     
@@ -145,15 +145,15 @@
 	    }
 	});
 
-	var factoryModel = new FactoryModel();
-	new FactoryView({ el : $("#note-factory"), model : factoryModel, notes : notes });
+	var statusModel = new StatusModel();
+	new FactoryView({ el : $("#note-factory"), model : statusModel, notes : notes });
 
 	$("#login").couchLogin({
 	    loggedIn : function(){
-		factoryModel.set({ enabled : true });
+		statusModel.set({ enabled : true });
 	    },
 	    loggedOut : function(){
-		factoryModel.set({ enabled : false });
+		statusModel.set({ enabled : false });
 	    }
 	});
 	
