@@ -148,9 +148,9 @@
 	initialize : function(){
 	    _.bindAll(this, 'render');
 	    
-	    this.model.bind("add", function(){
-		this.render();
-	    }, this);
+	    var renderMe = function(){ this.render(); };
+	    this.model.bind("add", renderMe, this);
+	    this.model.bind("reset", renderMe, this);
 
 	    this.render();
 	},
@@ -168,15 +168,22 @@
 
     $(function(){
 	var notes = new NotesModel();
-	notes.fetch({
-	    success: function(){
-		new NoticeboardView({el: $("#noticeboard"), model: notes});
-	    }
-	});
-
+	
 	var statusModel = new StatusModel();
 	new FactoryView({ el : $("#note-factory"), model : statusModel, notes : notes });
 	new WastebinView({ el : $("#note-destructor"), model: statusModel });
+
+	statusModel.bind("change", function(){
+	    if (this.get("enabled")){
+		notes.fetch({
+		    success: function(){
+			new NoticeboardView({el: $("#noticeboard"), model: notes});
+		    }
+		});
+	    } else {
+		notes.reset();
+	    }
+	}, statusModel);
 
 	$("#login").couchLogin({
 	    loggedIn : function(user){
