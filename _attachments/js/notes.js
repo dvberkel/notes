@@ -138,8 +138,6 @@
     });
 
     $(function(){
-	$("#login").couchLogin();
-
 	var notes = new NotesModel();
 	notes.fetch({
 	    success: function(){
@@ -147,8 +145,17 @@
 	    }
 	});
 
-	var factoryModel = new FactoryModel({enabled : true});
+	var factoryModel = new FactoryModel();
 	new FactoryView({ el : $("#note-factory"), model : factoryModel, notes : notes });
+
+	$("#login").couchLogin({
+	    loggedIn : function(){
+		factoryModel.set({ enabled : true });
+	    },
+	    loggedOut : function(){
+		factoryModel.set({ enabled : false });
+	    }
+	});
 	
 	$("#note-destructor").droppable({
 	    accept : ".note",
