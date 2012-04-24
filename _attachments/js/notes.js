@@ -38,9 +38,12 @@
 	    element.empty();
 	    if (view.model.get("enabled")) {
 		$("<input type='button' value='Create Note'/>").click(function(){
-		    var x = (window.innerWidth - 150) * Math.random();
-		    var y = (window.innerHeight - 150) * Math.random();
-		    view.options.notes.create({x : x, y : y});
+		    var user = view.model.get("user");
+		    if (user) {
+			var x = (window.innerWidth - 150) * Math.random();
+			var y = (window.innerHeight - 150) * Math.random();
+			view.options.notes.create({ user : user.name, x : x, y : y });
+		    }
 		}).appendTo(element);
 	    }
 	}
@@ -176,10 +179,11 @@
 	new WastebinView({ el : $("#note-destructor"), model: statusModel });
 
 	$("#login").couchLogin({
-	    loggedIn : function(){
-		statusModel.set({ enabled : true });
+	    loggedIn : function(user){
+		statusModel.set({ user : user, enabled : true });
 	    },
 	    loggedOut : function(){
+		statusModel.unset("user", { silent : true });
 		statusModel.set({ enabled : false });
 	    }
 	});
