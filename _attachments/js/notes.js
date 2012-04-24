@@ -46,6 +46,32 @@
 	}
     });
 
+    var WastebinView = Backbone.View.extend({
+	initialize : function(){
+	    _.bindAll(this, "render");
+	    
+	    this.model.bind("change", function(){
+		this.render();
+	    }, this);
+
+	    this.render();
+	},
+
+	render : function(){
+	    var view = this;
+	    var element = $(view.el);
+	    element.empty();
+	    if (view.model.get("enabled")) {
+		$("<div />").droppable({
+		    accept : ".note",
+		    drop : function(event, ui){
+			ui.draggable.trigger("removed");
+		    }
+		}).addClass("waste-bin").appendTo(element);
+	    }
+	}
+    });
+
     var NoteContentView = Backbone.View.extend({
 	template : _.template("<textarea><%= content  %></textarea>"),
 
@@ -147,6 +173,7 @@
 
 	var statusModel = new StatusModel();
 	new FactoryView({ el : $("#note-factory"), model : statusModel, notes : notes });
+	new WastebinView({ el : $("#note-destructor"), model: statusModel });
 
 	$("#login").couchLogin({
 	    loggedIn : function(){
@@ -156,12 +183,5 @@
 		statusModel.set({ enabled : false });
 	    }
 	});
-	
-	$("#note-destructor").droppable({
-	    accept : ".note",
-	    drop : function(event, ui){
-		ui.draggable.trigger("removed");
-	    }
-	}).addClass("waste-bin");
     });      
 })(jQuery, _, Backbone, Markdown);
