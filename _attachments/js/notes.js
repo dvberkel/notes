@@ -175,8 +175,10 @@
 
 	statusModel.bind("change", function(){
 	    if (this.get("enabled")){
+		var user = this.get("user").name;
 		notes.fetch({
-		    success: function(){
+		    key : ["notes", user],
+		    success : function(){
 			new NoticeboardView({el: $("#noticeboard"), model: notes});
 		    }
 		});
