@@ -35,3 +35,8 @@ For example
         }
       }
     }
+
+Attribution
+-----------
+
+Patrick Hoesly created the cork background.
