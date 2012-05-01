@@ -37,7 +37,7 @@
 	    var element = $(view.el);
 	    element.empty();
 	    if (view.model.get("enabled")) {
-		$("<input type='button' value='Create Note'/>").click(function(){
+		$("<div/>").addClass("protonote").append("<p>Click to create a note</p>").click(function(){
 		    var user = view.model.get("user");
 		    if (user) {
 			var x = (window.innerWidth - 150) * Math.random();

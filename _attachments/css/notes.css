@@ -38,7 +38,7 @@ body {
     height: 100%;
 }
 
-.note {
+.note, .protonote {
     font-family: 'Just Me Again Down Here', cursive;
     background-color: yellow;
     border-style: solid;
@@ -48,6 +48,12 @@ body {
     width: 150px;
     height: 150px;
     overflow-y: auto;
+}
+
+.protonote {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .pushpin {
