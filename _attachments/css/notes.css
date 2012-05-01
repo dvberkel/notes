@@ -3,6 +3,35 @@ body {
     padding: 0;
 }
 
+#login-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    padding: 10px;
+    margin-left: -200px;
+    width: 400px;
+    background-color: rgba(187, 0, 238, 0.3);
+    border-style: solid;
+    border-color: rgb(119, 0, 153);
+    border-width: 1px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#login {
+    width: 100%;
+}
+
+#login label {
+    display: block;
+}
+
+.slider {
+    margin-left: auto;
+    margin-right: auto;
+    width: 0px;
+}
+
 #noticeboard {
     background-image: url('../image/cork.jpg');
     width: 100%;

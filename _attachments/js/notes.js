@@ -186,7 +186,11 @@
 		notes.reset();
 	    }
 	}, statusModel);
-
+	
+	$("<div>=</div>").addClass("slider").click(function(){
+	    $("#login").slideToggle("slow");
+	}).appendTo($("#login-container"));
+	
 	$("#login").couchLogin({
 	    loggedIn : function(user){
 		statusModel.set({ user : user, enabled : true });
