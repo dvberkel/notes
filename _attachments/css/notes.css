@@ -21,6 +21,14 @@ body {
     overflow-y: auto;
 }
 
+.pushpin {
+    position: absolute;
+    top: 0;
+    right: 45%;
+    width: 33px;
+    height: 30px;
+}
+
 .note * {
     margin: 0;
 }

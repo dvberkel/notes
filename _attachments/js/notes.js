@@ -134,7 +134,7 @@
 		}
 	    }).on("removed", function(){
 		view.model.set({ active : false });
-	    });
+	    }).append("<img class='pushpin' src='image/pushpin.svg'></img>");
 	    if (! view.model.get("active")) {
 		element.hide();
 	    }
